@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { LoadingOutlined } from '@ant-design/icons';
+import React, { useState, useEffect, useRef } from "react";
+import { LoadingOutlined, PlayCircleOutlined, PauseCircleOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 // import api
 import { InsertScoreApi } from "../../../api/gameScoreApi"
@@ -26,21 +26,35 @@ function RockPaperScissorsPage() {
     const [insertMessage, setInsertMessage] = useState("");
     const [loading, setLoading] = useState(true)
 
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = useRef(null);
+
+    const togglePlayPause = function () {
+        if (audioRef.current) {
+            if (isPlaying) {
+                audioRef.current.pause();
+            } else {
+                audioRef.current.play();
+            }
+            setIsPlaying(!isPlaying);
+        }
+    };
+
     const handleButtonDone = async () => {
         try {
             const user_id = localStorage.getItem("tokenId");
-            
+
             //start the spinner
             setLoading(false)
 
             // send the data to BE
             await InsertScoreApi(user_id, game_url, reduxState.reducer.round, reduxState.reducer.score);
             await setInsertMessage(`Skor tersimpan di user ${username} dengan skor ${reduxState.reducer.score} dengan jumlah ronde ${reduxState.reducer.round}`);
-            
+
             // reset states
             setTimeout(() => {
                 dispatch(updateRound(0))
-                dispatch(updateScore(0))    
+                dispatch(updateScore(0))
                 setUserChoice(null);
                 setComputerChoice(null);
                 setResult('VS');
@@ -108,6 +122,17 @@ function RockPaperScissorsPage() {
         }
     }, [])
 
+    useEffect(() => {
+        // Rest of your component logic remains the same
+
+        // Initialize the audio element
+        if (audioRef.current) {
+            audioRef.current.src = "/rps-music.mp3";
+            audioRef.current.muted = false;
+            audioRef.current.loop = true;
+        }
+    }, []);
+
     return (
         <div className={styles.rpsBody}>
             <header className={styles.rpsHeader}>
@@ -121,16 +146,22 @@ function RockPaperScissorsPage() {
                     <h1 className={styles.rpsJudul}>ROCK PAPER SCISSORS</h1>
                 </div>
                 <div className={styles.rpsRightitem}>
+                    <div className={styles.audioPlayer}>
+                        <audio ref={audioRef} />
+                        <button className={styles.customPlayButton} onClick={togglePlayPause}>
+                            {isPlaying ? <PauseCircleOutlined /> : <PlayCircleOutlined />}
+                        </button>
+                    </div>
                     <button onClick={() => handleButtonDone()} className={styles.doneButton}>
-                        {loading === true ? 
-                        <span style={{ fontSize: '20px' }}>Save your Progress!</span> : 
-                        <Spin indicator={<LoadingOutlined
-                            style={{
-                                fontSize: 44,
-                                color: "white"
-                            }}
-                            spin
-                        />} />}
+                        {loading === true ?
+                            <span style={{ fontSize: '20px' }}>Save your Progress!</span> :
+                            <Spin indicator={<LoadingOutlined
+                                style={{
+                                    fontSize: 44,
+                                    color: "white"
+                                }}
+                                spin
+                            />} />}
                     </button>
                 </div>
 
