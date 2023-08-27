@@ -22,6 +22,12 @@
     gap: 30px;
 }
 
+.rpsRightitem {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
 .rpsJudul,
 .rpsScoreDisplay,
 .rpsRondeDisplay {
@@ -200,4 +206,18 @@
 .refreshImg {
     width: 77px;
     height: 77px;
+}
+
+.video-react .video-react-control-bar,
+.video-react .video-react-volume-control,
+.video-react .video-react-icon-replay {
+    display: none;
+}
+
+.customPlayButton {
+
+}
+
+.audioPlayer {
+
 }

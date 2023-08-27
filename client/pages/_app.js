@@ -5,6 +5,8 @@ import { useRouter } from 'next/router';
 import store from '../redux/store';
 import { Provider } from 'react-redux';
 
+import 'video-react/dist/video-react.css';
+
 function MyApp({ Component, pageProps }) {
 
   const router = useRouter();
