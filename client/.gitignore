@@ -35,3 +35,4 @@ yarn-error.log*
 
 package.json
 package-lock.json
+next.config.js
