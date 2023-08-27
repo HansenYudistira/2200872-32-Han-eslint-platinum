@@ -22,6 +22,12 @@
     gap: 30px;
 }
 
+.rpsRightitem {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
 .rpsJudul,
 .rpsScoreDisplay,
 .rpsRondeDisplay {
