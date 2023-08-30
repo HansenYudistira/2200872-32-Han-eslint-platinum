@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Skeleton } from 'antd';
 
 // import reactstrap
-import { Button } from "reactstrap";
+import { Button, FormGroup, Label, Input, FormText, Spinner } from "reactstrap";
 
 // import css
 import style from "../../styles/profile/Profile.module.css"
@@ -11,15 +11,15 @@ import style from "../../styles/profile/Profile.module.css"
 // import components
 import ModalProfile from "../../components/profilePage/Modal";
 import NavbarProfile from "../../components/profilePage/Navbar";
-import Footer from "../../components/Footer/FooterAbs";
+import Footer from "../../components/Footer";
 
 // api
 import { userProfileApi } from "../../api/profilePageApi";
+import { VideoApi } from "../../api/videoApi";
 
 // import redux
 import { useDispatch, useSelector } from "react-redux";
 import { loadingSkeleton } from "../../redux/action";
-
 
 // use dummy data in case the server is error
 const userDummy = { 
@@ -32,9 +32,13 @@ const userDummy = {
     country: "Data invalid"
 };
 
+
 function ProfilePage() {
     // state
     const [profileUser, setProfileUser] = useState( {data: userDummy} );
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [uploading, setUploading] = useState(false);
+    const [videoUploaded, setVideoUploaded] = useState(false);
 
     // get original state of redux
     const reduxState = useSelector(state => state.reducer)
@@ -61,7 +65,35 @@ function ProfilePage() {
          }
      }, [])
 
+     const handleFileChange = (event) => {
+        setSelectedFile(event.target.files[0]);
+      };
     
+      const handleUpload = () => {
+        if (selectedFile) {
+            const payload = {
+                userId: profileUser.data.id,
+                createVideo: selectedFile,
+              };
+              setUploading(true);
+        //   console.log('selectedFile:', selectedFile)
+        // console.log(payload)
+
+        //   console.log('formdata:', formdata)
+      
+        VideoApi(payload)
+        .then(response => {
+            console.log(response);
+            setVideoUploaded(true);
+        })
+        .catch(error => {
+            console.log('Error uploading video:', error);
+        })
+        .finally(() => {
+            setUploading(false);
+        });
+        }
+    };
     return (
         <div className={style.bgProfile}>
             <NavbarProfile />
@@ -136,6 +168,28 @@ function ProfilePage() {
                                     History Game
                                 </Button>
                             </Link>
+                        </div>
+                        <div style={{ backgroundColor:'#291D89', borderRadius:'25px', marginBottom:'3rem'}}>
+                            
+                        <FormGroup style={{ marginBottom:'5px' }}>
+                            <div>
+                        <h5 style={{ color:'white' }}>Share Your Best Moment</h5></div>
+                            {/* <Label for="exampleFile">Video File</Label> */}
+                            <div style={{ marginLeft:'50px' }}>
+                            <Input type="file" accept="video/mp4 "name="video" id="videoFile" onChange={handleFileChange} /></div>
+                        </FormGroup>
+                        <Button
+                            style={{ backgroundColor: '#4E67EB', marginBottom: '25px' }}
+                            className={`ms-3 ${style.btnProfile}`}
+                            onClick={handleUpload}
+                            disabled={uploading || videoUploaded}
+                        >
+                             {uploading ? 'Uploading...' : 'Submit Video'}
+                        </Button>
+                        {videoUploaded && (
+                            <div style={{ color: 'white' }}>Video has been successfully uploaded!</div>
+                        )}
+                        {/* {uploading && <Spinner animation="border" color="light" />} */}
                         </div>
                     </div>
                 </div>
