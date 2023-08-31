@@ -49,8 +49,11 @@ function ModalProfile(props) {
                         <h5>Score: {userData.score}</h5>
                         <h5>Rank: {userData.rank}</h5>
                         
-                        <video className={styles['video-wrapper']} src={userData.video} alt={userData.id} width={300} controls></video>
-                        
+                        <div className={styles['video-wrapper']}>{userData.video ? (<video src={userData.video} alt={userData.id} width={300} controls></video>
+                        ) : (
+                            <p>Sobat ini belum punya moment video untuk dibagikan</p>
+                        )}
+                        </div> 
                     </div>
                 </div>
             </ModalBody>
