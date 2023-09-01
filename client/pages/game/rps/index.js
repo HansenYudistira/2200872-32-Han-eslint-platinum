@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 
 // import api
 import { InsertScoreApi } from "../../../api/gameScoreApi"
+import { getAudioApi } from "../../../api/audioApi"
 
 //import css
 import styles from '../../../styles/games/Rps.module.css'
@@ -108,28 +109,28 @@ function RockPaperScissorsPage() {
     }, [userChoice, computerChoice]);
 
 
-    useEffect(() => {
+    useEffect(function() {
         try {
             if (!localStorage.getItem('tokenId')) {
                 return window.location.replace('/login')
             } else {
                 const userName = localStorage.getItem("tokenUsername");
                 setUsername(userName);
-                return;
             }
         } catch (error) {
             console.error('Error occurred while verifying token:', error);
         }
     }, [])
 
-    useEffect(() => {
-        // Rest of your component logic remains the same
-
+    useEffect(async function() {
+        const audioUrl = await getAudioApi();
+        console.log("audio url :", audioUrl);
         // Initialize the audio element
         if (audioRef.current) {
-            audioRef.current.src = "/rps-music.mp3";
+            audioRef.current.src = audioUrl;
             audioRef.current.muted = false;
             audioRef.current.loop = true;
+            console.log("audioRef current:",audioRef.current)
         }
     }, []);
 
