@@ -28,6 +28,7 @@ function RockPaperScissorsPage() {
     const [loading, setLoading] = useState(true)
 
     const [isPlaying, setIsPlaying] = useState(false);
+    const [audioFile, setAudioFile] = useState(null);
     const audioRef = useRef(null);
 
     const togglePlayPause = function () {
@@ -39,6 +40,25 @@ function RockPaperScissorsPage() {
             }
             setIsPlaying(!isPlaying);
         }
+    };
+
+    const handleAudioUpload = async () => {
+        try {
+            if (audioFile) {
+                const user_id = localStorage.getItem("tokenId");
+                const storageRef = firebase.storage().ref();
+                const audioRef = storageRef.child(`audio/${user_id}/${audioFile.name}`);
+                await audioRef.put(audioFile);
+                console.log("Audio file uploaded successfully!");
+            }
+        } catch (error) {
+            console.error("Error uploading audio:", error);
+        }
+    };
+
+    const handleFileChange = (event) => {
+        const selectedFile = event.target.files[0];
+        setAudioFile(selectedFile);
     };
 
     const handleButtonDone = async () => {
@@ -109,7 +129,7 @@ function RockPaperScissorsPage() {
     }, [userChoice, computerChoice]);
 
 
-    useEffect(function() {
+    useEffect(function () {
         try {
             if (!localStorage.getItem('tokenId')) {
                 return window.location.replace('/login')
@@ -122,15 +142,13 @@ function RockPaperScissorsPage() {
         }
     }, [])
 
-    useEffect(async function() {
+    useEffect(async function () {
         const audioUrl = await getAudioApi();
-        console.log("audio url :", audioUrl);
         // Initialize the audio element
         if (audioRef.current) {
-            audioRef.current.src = audioUrl;
+            audioRef.current.src = audioUrl.audioURL;
             audioRef.current.muted = false;
             audioRef.current.loop = true;
-            console.log("audioRef current:",audioRef.current)
         }
     }, []);
 
@@ -150,8 +168,14 @@ function RockPaperScissorsPage() {
                     <div className={styles.audioPlayer}>
                         <audio ref={audioRef} />
                         <button className={styles.customPlayButton} onClick={togglePlayPause}>
-                            {isPlaying ? <PauseCircleOutlined /> : <PlayCircleOutlined />}
+                            {isPlaying ? (
+                                <img src="/images/audio/volume-on-indicator.png" alt="Pause" />
+                            ) : (
+                                <img src="/images/audio/volume-off-indicator.png" alt="Play" />
+                            )}
                         </button>
+                        <input type="file" accept="audio/*" onChange={handleFileChange} />
+                        <button onClick={handleAudioUpload}>Upload Audio</button>
                     </div>
                     <button onClick={() => handleButtonDone()} className={styles.doneButton}>
                         {loading === true ?
