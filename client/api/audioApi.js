@@ -1,12 +1,12 @@
-function getAudioApi() {
-    var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-    };
+function getAudioApi () {
+  const requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  }
 
-    return fetch(`${process.env.REACT_APP_BE_URL}/audio/get`, requestOptions)
+  return fetch(`${process.env.REACT_APP_BE_URL}/audio/get`, requestOptions)
     .then(response => response.json())
-    .catch(error => console.log('error', error));
+    .catch(error => console.log('error', error))
 }
 
-export { getAudioApi };
+export { getAudioApi }

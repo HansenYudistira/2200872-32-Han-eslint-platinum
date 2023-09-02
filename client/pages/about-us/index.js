@@ -1,22 +1,22 @@
-import React from "react";
-import { FaGithub } from 'react-icons/fa';
+/* eslint-disable react/no-unescaped-entities */
+import React from 'react'
+import { FaGithub } from 'react-icons/fa'
 
-//import component
-import Footer from "../../components/Footer/FooterAbs";
-import Navbar from "../../components/Navbar";
+// import component
+import Footer from '../../components/Footer/FooterAbs'
+import Navbar from '../../components/Navbar'
 
-//import style
+// import style
 import style from '../../styles/LandingPage/aboutus/aboutus.module.css'
 
-
-function aboutUs(){
-    return(
+function aboutUs () {
+  return (
         <div>
              <Navbar />
         <div className={style.background}>
-           
+
              <div className={style.container}>
-                
+
              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'start', minHeight: '100vh' }}>
   <div style={{ marginLeft: '20px', marginRight: '50px', marginTop: '30px' }}>
     <div className={style['about-title']} style={{
@@ -31,7 +31,7 @@ function aboutUs(){
       marginLeft: '20px'
     }}>
               <h1>ABOUT US</h1>
-              <div className='about-text' style={{ backgroundColor: '#4E67EB'}}>
+              <div className='about-text' style={{ backgroundColor: '#4E67EB' }}>
                   <p>
                     Welcome to our online game platform!</p>
 
@@ -43,11 +43,11 @@ function aboutUs(){
                   </p>
                 </div>
                 </div>
-                <div className={style['developer-title']} style={{ color: "white", textAlign: 'center', marginTop: "5px"}}>
+                <div className={style['developer-title']} style={{ color: 'white', textAlign: 'center', marginTop: '5px' }}>
                 <h1 className='text-light'>Developer Team:</h1>
 
                 <div className={`${style.developerName} d-flex justify-content-center`}>
-                <div className={`${style.developerInfo} d-flex`} style={{ gap: "40px"}}>
+                <div className={`${style.developerInfo} d-flex`} style={{ gap: '40px' }}>
                     <div className={style['developer-info-itemstyle']}>
                     <h6 >
                         Hansen Yudhistira
@@ -76,7 +76,7 @@ function aboutUs(){
                     </div>
                     </div>
                     <div className={style['developer-info-itemstyle']}>
-                    <h6 > 
+                    <h6 >
                         Agnes Septilia
                     </h6>
                     <div className="icon-text-container">
@@ -102,7 +102,7 @@ function aboutUs(){
         <Footer />
         </div>
         </div>
-        )
+  )
 }
 
 export default aboutUs

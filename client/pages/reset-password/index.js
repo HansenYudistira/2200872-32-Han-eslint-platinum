@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Label, Input, Button, Alert } from "reactstrap"
+import React, { useState } from 'react'
+import { Label, Input, Button, Alert } from 'reactstrap'
 
 // SPINNER
 import { LoadingOutlined } from '@ant-design/icons'
@@ -11,55 +11,55 @@ import styles from '../../styles/RegisterLoginPage/Reset.module.css'
 const antIcon = (
     <LoadingOutlined
     style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: 19,
-        fontWeight: 900,
-        color: 'blue',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: 19,
+      fontWeight: 900,
+      color: 'blue'
     }}
     spin/>)
 
-function ResetPasswordPage() {
-    const [inputs, setInputs] = useState({})
-    const [showAlert, setShowAlert] = useState(false)
-    const [alertMessage, setAlertMessage] = useState('')
-    const [showResetSpinner, setShowResetSpinner] = useState(false)
-    const [showBackSpinner, setShowBackSpinner] = useState(false)
-  
-    const handleChange = (event) => {
-        const name = event.target.name
-        const value = event.target.value
-        setInputs(values => ({ ...values, [name]: value }))
-    }
+function ResetPasswordPage () {
+  const [inputs, setInputs] = useState({})
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [showResetSpinner, setShowResetSpinner] = useState(false)
+  const [showBackSpinner, setShowBackSpinner] = useState(false)
 
-    const handleBackClick = () => {
-        setShowBackSpinner(true)
-        setTimeout(() => {
-        setShowBackSpinner(false)
-        window.location.href = '/login'
-        }, 2000)
-    }
+  const handleChange = (event) => {
+    const name = event.target.name
+    const value = event.target.value
+    setInputs(values => ({ ...values, [name]: value }))
+  }
 
-    const handleResetClick = async () => {
-        try {
-            if (!inputs.email) {
-            setShowAlert(true)
-            setAlertMessage('FAILED ❗ PLEASE ENTER YOUR EMAIL')
-            return
-        }
-        setShowResetSpinner(true)
-        setTimeout(() => {
-            setShowResetSpinner(false)
-            setShowAlert(true)
-            setAlertMessage('SUCCESS ✅ CHECK YOUR EMAIL TO RESET YOUR PASSWORD')
-        }, 2000)
+  const handleBackClick = () => {
+    setShowBackSpinner(true)
+    setTimeout(() => {
+      setShowBackSpinner(false)
+      window.location.href = '/login'
+    }, 2000)
+  }
+
+  const handleResetClick = async () => {
+    try {
+      if (!inputs.email) {
+        setShowAlert(true)
+        setAlertMessage('FAILED ❗ PLEASE ENTER YOUR EMAIL')
+        return
+      }
+      setShowResetSpinner(true)
+      setTimeout(() => {
+        setShowResetSpinner(false)
+        setShowAlert(true)
+        setAlertMessage('SUCCESS ✅ CHECK YOUR EMAIL TO RESET YOUR PASSWORD')
+      }, 2000)
     } catch (error) {
-        console.log(error)
-        }
+      console.log(error)
     }
+  }
 
-    return (
+  return (
         <div
             className={
                 `${styles.bodyClass}`
@@ -110,7 +110,7 @@ function ResetPasswordPage() {
             className={
                 `${styles.inputClass}`
             }
-                value={inputs.email || ""}
+                value={inputs.email || ''}
                 onChange={handleChange}
             required/>
         <Label
@@ -155,7 +155,7 @@ function ResetPasswordPage() {
         </div>
         </div>
         </div>
-    )
+  )
 }
 
 export default ResetPasswordPage

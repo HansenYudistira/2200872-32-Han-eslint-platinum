@@ -1,5 +1,6 @@
-import React, { useState } from "react"
-import { Label, Input, Button, Alert } from "reactstrap"
+/* eslint-disable react/no-unescaped-entities */
+import React, { useState } from 'react'
+import { Label, Input, Button, Alert } from 'reactstrap'
 import Link from 'next/link'
 
 // SPINNER
@@ -20,57 +21,57 @@ const antIcon = (
       justifyContent: 'center',
       fontSize: 20,
       fontWeight: 70,
-      color: 'blue',
+      color: 'blue'
     }}
     spin/>)
 
-function LoginPage() {
-    const [inputs, setInputs] = useState({})
-    const [showAlert, setShowAlert] = useState(false)
-    const [alertMessage, setAlertMessage] = useState('')
-    const [showSpinner, setShowSpinner] = useState(false)
+function LoginPage () {
+  const [inputs, setInputs] = useState({})
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [showSpinner, setShowSpinner] = useState(false)
 
-    const handleChange = (event) => {
-        const name = event.target.name
-        const value = event.target.value
-        setInputs(values => ({...values, [name]: value}))
-    }
+  const handleChange = (event) => {
+    const name = event.target.name
+    const value = event.target.value
+    setInputs(values => ({ ...values, [name]: value }))
+  }
 
-    const handleSubmit = async (event) => {
-        try {
-            event.preventDefault()
-            if (!inputs.username || !inputs.password) {
-                setShowAlert(true)
-                setAlertMessage('PLEASE ENTER YOUR USERNAME AND PASSWORD !')
-                return
-            }
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault()
+      if (!inputs.username || !inputs.password) {
+        setShowAlert(true)
+        setAlertMessage('PLEASE ENTER YOUR USERNAME AND PASSWORD !')
+        return
+      }
 
-            setShowSpinner(true)
+      setShowSpinner(true)
 
-            const result = await LoginApi(inputs)
+      const result = await LoginApi(inputs)
 
-            setShowSpinner(false)
+      setShowSpinner(false)
 
-            if (!result) {
-                setAlertMessage('INTERNAL SERVER ERROR !!!')
-                setShowAlert(true)
-            } else {
-                if (result.status === "success") {
-                    localStorage.setItem('tokenId', result.data.id)
-                    localStorage.setItem('tokenUsername', result.data.username)
-                    localStorage.setItem('tokenAvatar', result.data.avatar)
-                    window.location.replace('/')// KALAU USER BERHASIL LOGIN LEMPAR KEHALAMAN ( HALAMAN MENYESUAIKAN )
-                } else {
-                    setAlertMessage(result.message)
-                    setShowAlert(true)
-                }
-            }
-        } catch (error) {
-            console.log(error)
+      if (!result) {
+        setAlertMessage('INTERNAL SERVER ERROR !!!')
+        setShowAlert(true)
+      } else {
+        if (result.status === 'success') {
+          localStorage.setItem('tokenId', result.data.id)
+          localStorage.setItem('tokenUsername', result.data.username)
+          localStorage.setItem('tokenAvatar', result.data.avatar)
+          window.location.replace('/')// KALAU USER BERHASIL LOGIN LEMPAR KEHALAMAN ( HALAMAN MENYESUAIKAN )
+        } else {
+          setAlertMessage(result.message)
+          setShowAlert(true)
         }
+      }
+    } catch (error) {
+      console.log(error)
     }
+  }
 
-    return (
+  return (
         <div
             className={
                 `${styles.bodyClass}`
@@ -115,7 +116,7 @@ function LoginPage() {
             className={
                 `${styles.inputClass}`
             }
-            value={inputs.username || ""}
+            value={inputs.username || ''}
             onChange={handleChange}
         required/>
         <Label
@@ -143,7 +144,7 @@ function LoginPage() {
             className={
                 `${styles.inputClass}`
             }
-            value={inputs.password || ""}
+            value={inputs.password || ''}
             onChange={handleChange}
         required/>
         <Label
@@ -160,7 +161,7 @@ function LoginPage() {
         </div>
         </div>
 
-        <div 
+        <div
             className={
                 `${styles.LinkClass}`
             }>
@@ -187,10 +188,10 @@ function LoginPage() {
             onClick={handleSubmit}
             href="/RegisterPage">
                 BACK
-        </Button> 
+        </Button>
 
         </div> */}
-        <div 
+        <div
             className={
                 `${styles.ButtonContainerClass}`
             }>
@@ -205,7 +206,7 @@ function LoginPage() {
         </div>
         </div>
         </div>
-    )
+  )
 }
 
 export default LoginPage

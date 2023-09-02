@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 import {
   Collapse,
@@ -9,52 +9,50 @@ import {
   NavItem,
   NavLink,
   UncontrolledTooltip
-} from 'reactstrap';
+} from 'reactstrap'
 
-// import component 
-import LogoutModal from '../LandingPage/logoutModal';
+// import component
+import LogoutModal from '../LandingPage/logoutModal'
 
-//import api
-import { UserTotalScore } from '../../api/userGamesApi';
+// import api
+import { UserTotalScore } from '../../api/userGamesApi'
 
+function navbar (args) {
+  const [isOpen, setIsOpen] = useState(false)
 
-function navbar(args){
-  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen)
 
-  const toggle = () => setIsOpen(!isOpen);
-
-  const [activeToken, setActiveToken] = useState({data: []})
-  const [totalSkor, setTotalSkor] = useState(0);
+  const [activeToken, setActiveToken] = useState({ data: [] })
+  const [totalSkor, setTotalSkor] = useState(0)
 
   useEffect(async () => {
     try {
-        const id = localStorage.getItem('tokenId')
-        const username = localStorage.getItem('tokenUsername')
-        const avatar = localStorage.getItem('tokenAvatar')
+      const id = localStorage.getItem('tokenId')
+      const username = localStorage.getItem('tokenUsername')
+      const avatar = localStorage.getItem('tokenAvatar')
 
-        if (username) {
-            const newToken = {id, username, avatar}
-            setActiveToken({data: newToken})
+      if (username) {
+        const newToken = { id, username, avatar }
+        setActiveToken({ data: newToken })
 
-            UserTotalScore(id).then(async (result) => {
-                if (result!== undefined) {
-                    await setTotalSkor(Number(result.data))
-                  } else {
-                    console.log("No valid score data in the response.");
-                }
-              }).catch(error => {
-                console.log("Error fetching score data:", error);
-            });
-        } 
+        UserTotalScore(id).then(async (result) => {
+          if (result !== undefined) {
+            await setTotalSkor(Number(result.data))
+          } else {
+            console.log('No valid score data in the response.')
+          }
+        }).catch(error => {
+          console.log('Error fetching score data:', error)
+        })
+      }
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
-}, []); 
+  }, [])
 
-
-    return(
+  return (
       <div>
-      <Navbar  style={{ backgroundColor: '#4E67EB' }} dark expand="md">
+      <Navbar style={{ backgroundColor: '#4E67EB' }} dark expand="md">
       <NavbarBrand href="/">
         <img src="/images/logo.jpeg" width={50} height={50} id="logoToHome"/>
         <UncontrolledTooltip
@@ -64,7 +62,7 @@ function navbar(args){
                 HOME
         </UncontrolledTooltip>
       </NavbarBrand>
-      
+
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
         <Nav className="left-panel" navbar>
@@ -76,12 +74,12 @@ function navbar(args){
           </NavItem>
           <NavItem>
             <NavLink href="/share">Share</NavLink>
-          </NavItem>            
+          </NavItem>
         </Nav>
       </Collapse>
-        
-      {activeToken.data.username ? 
-    <Nav className='right-panel' dark expand="md">
+
+      {activeToken.data.username
+        ? <Nav className='right-panel' dark expand="md">
       <NavItem>
         <NavLink href ="/profile">
           <img src={activeToken.data.avatar} alt="" width={50} height={50} style={{ cursor: 'pointer' }} id="viewProfile"/>
@@ -103,7 +101,7 @@ function navbar(args){
           <LogoutModal />
       </NavItem>
     </Nav>
-   : (
+        : (
       <div>
           <Nav>
           <NavItem>
@@ -118,11 +116,11 @@ function navbar(args){
 
           </Nav>
   </div>
-  )}
+          )}
   </Navbar>
       </div>
 
-    )
+  )
 }
 
 export default navbar
