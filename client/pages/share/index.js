@@ -1,28 +1,28 @@
-import React from "react";
+import React from 'react'
 
-import Footer from "../../components/Footer";
-import Navbar from "../../components/Navbar";
+import Footer from '../../components/Footer'
+import Navbar from '../../components/Navbar'
 
 import style from '../../styles/LandingPage/share/share.module.css'
 
-import { Form, FormGroup, Button, Label, Input } from 'reactstrap';
+import { Form, FormGroup, Button, Label, Input } from 'reactstrap'
 import {
   FaFacebookSquare,
   FaInstagramSquare,
   FaYoutube,
   FaTwitter,
   FaTelegram,
-  FaDiscord,
-} from "react-icons/fa";
+  FaDiscord
+} from 'react-icons/fa'
 import {
   MdAlternateEmail
-} from 'react-icons/md';
+} from 'react-icons/md'
 import {
   BiLogoPlayStore
-} from 'react-icons/bi';
+} from 'react-icons/bi'
 
-function share(){
-    return(
+function share () {
+  return (
         <div>
       <div className={style.background}>
         <Navbar />
@@ -44,7 +44,7 @@ function share(){
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <div className={style['share-form']} style={{ backgroundColor:'#4E67EB'}}>
+                <div className={style['share-form']} style={{ backgroundColor: '#4E67EB' }}>
                   <h1 className='text-light'>Or drop a message :</h1>
                   <Form>
                     <FormGroup>
@@ -97,8 +97,8 @@ function share(){
         <br></br>
         <Footer />
       </div>
-      
+
     </div>
-    )
+  )
 }
 export default share

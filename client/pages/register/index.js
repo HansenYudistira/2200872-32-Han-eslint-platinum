@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Label, Input, Button, Alert } from "reactstrap"
+import React, { useState } from 'react'
+import { Label, Input, Button, Alert } from 'reactstrap'
 import Link from 'next/link'
 
 // SPINNER
@@ -20,54 +20,54 @@ const antIcon = (
       justifyContent: 'center',
       fontSize: 20,
       fontWeight: 70,
-      color: 'blue',
+      color: 'blue'
     }}
     spin/>)
-  
-  function RegisterPage() {
-      const [inputs, setInputs] = useState({})
-      const [showAlert, setShowAlert] = useState(false)
-      const [alertMessage, setAlertMessage] = useState('')
-      const [showSpinner, setShowSpinner] = useState(false)
-  
-      const handleChange = (event) => {
-          const name = event.target.name
-          const value = event.target.value
-          setInputs(values => ({...values, [name]: value}))
+
+function RegisterPage () {
+  const [inputs, setInputs] = useState({})
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+  const [showSpinner, setShowSpinner] = useState(false)
+
+  const handleChange = (event) => {
+    const name = event.target.name
+    const value = event.target.value
+    setInputs(values => ({ ...values, [name]: value }))
+  }
+
+  const handleSubmit = async (event) => {
+    try {
+      event.preventDefault()
+      if (!inputs.email || !inputs.username || !inputs.password || !inputs.confirm_password) {
+        setShowAlert(true)
+        setAlertMessage('PLEASE ENTER YOUR DATA !')
+        return
       }
-  
-      const handleSubmit = async (event) => {
-          try {
-              event.preventDefault()
-              if (!inputs.email || !inputs.username || !inputs.password || !inputs.confirm_password) {
-                  setShowAlert(true)
-                  setAlertMessage('PLEASE ENTER YOUR DATA !')
-                  return
-              }
-  
-              setShowSpinner(true)
-  
-              const result = await RegisterApi(inputs)
-  
-              setShowSpinner(false)
-  
-              if (!result) {
-                  setAlertMessage('INTERNAL SERVER ERROR !!!')
-                  setShowAlert(true)
-              } else {
-                  if (result.status === "success") {
-                      await window.location.replace('/login')
-                  } else {
-                      setAlertMessage(result.message)
-                      setShowAlert(true)
-                  }
-              }
-          } catch (error) {
-              console.log(error)
-          }
+
+      setShowSpinner(true)
+
+      const result = await RegisterApi(inputs)
+
+      setShowSpinner(false)
+
+      if (!result) {
+        setAlertMessage('INTERNAL SERVER ERROR !!!')
+        setShowAlert(true)
+      } else {
+        if (result.status === 'success') {
+          await window.location.replace('/login')
+        } else {
+          setAlertMessage(result.message)
+          setShowAlert(true)
+        }
       }
-  
-      return (
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  return (
           <div
               className={
                   `${styles.bodyClass}`
@@ -85,7 +85,7 @@ const antIcon = (
               className={
                   `${styles.formClass}`
               }>
-  
+
           <Alert
               className={
                   `${styles.alertClass}`
@@ -93,14 +93,14 @@ const antIcon = (
               isOpen={showAlert}>
               {alertMessage}
           </Alert>
-  
+
           <h2
               className={
                   `${styles.hClass}`
               }>
               REGISTER ACCOUNT
           </h2>
-  
+
           <div
               className={
                   `${styles.inputBoxClass}`
@@ -112,7 +112,7 @@ const antIcon = (
               className={
                   `${styles.inputClass}`
               }
-                  value={inputs.email || ""}
+                  value={inputs.email || ''}
                   onChange={handleChange}
               required/>
           <Label
@@ -128,7 +128,7 @@ const antIcon = (
               }>
           </div>
           </div>
-  
+
           <div
               className={
                   `${styles.inputBoxClass}`
@@ -140,7 +140,7 @@ const antIcon = (
               className={
                   `${styles.inputClass}`
               }
-                  value={inputs.username || ""}
+                  value={inputs.username || ''}
                   onChange={handleChange}
               required/>
           <Label
@@ -156,7 +156,7 @@ const antIcon = (
               }>
           </div>
           </div>
-  
+
           <div
               className={
                   `${styles.inputBoxClass}`
@@ -168,7 +168,7 @@ const antIcon = (
               className={
                   `${styles.inputClass}`
               }
-              value={inputs.password || ""}
+              value={inputs.password || ''}
               onChange={handleChange}
           required/>
           <Label
@@ -184,7 +184,7 @@ const antIcon = (
               }>
           </div>
           </div>
-  
+
           <div
               className={
                   `${styles.inputBoxClass}`
@@ -196,7 +196,7 @@ const antIcon = (
               className={
                   `${styles.inputClass}`
               }
-                  value={inputs.confirm_password || ""}
+                  value={inputs.confirm_password || ''}
                   onChange={handleChange}
               required/>
           <Label
@@ -212,7 +212,7 @@ const antIcon = (
               }>
           </div>
           </div>
-  
+
           <div
               className={
                   `${styles.LinkClass}`
@@ -222,12 +222,12 @@ const antIcon = (
                   Already have an account ? Log in
           </Link>
           </div>
-  
-          <div 
+
+          <div
               className={
                   `${styles.ButtonContainerClass}`
               }>
-  
+
           {/* <Button
               className={
                   `${styles.ButtonClass}`
@@ -236,7 +236,7 @@ const antIcon = (
               onClick={handleSubmit} >
                   BACK
           </Button>  */}
-  
+
           <Button
               className={
                   `${styles.SubmitClass}`
@@ -246,11 +246,11 @@ const antIcon = (
                   {showSpinner ? <Spin indicator={antIcon} /> : 'REGISTER'}
           </Button>
           </div>
-  
+
           </div>
           </div>
           </div>
-      )
-  }
-  
-  export default RegisterPage
+  )
+}
+
+export default RegisterPage

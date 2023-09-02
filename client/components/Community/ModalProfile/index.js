@@ -1,42 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from 'react'
+import { Modal, ModalHeader, ModalBody } from 'reactstrap'
 // import { VideoApi } from '../../../api/videoApi'
 
 import styles from '../../../styles/LandingPage/community/modal.module.css'
 
-function ModalProfile(props) {
-    const { onClose, userData } = props;
-    // const [video, setVideoUrl] = useState('');
-    // const [video, setSelectedVideo] = useState(null);
+function ModalProfile (props) {
+  const { onClose, userData } = props
+  // const [video, setVideoUrl] = useState('');
+  // const [video, setSelectedVideo] = useState(null);
 
-    // useEffect(() => {
-    //     // console.log('video url updated:', video);
-    //     try {
-    //         if (video) {
-    //             const formData = new FormData();
-    //             formData.append("video", video, `video-user${userData.id}`);
-    //             // console.log('video:', video)                
-    //             VideoApi(formData, userData.id)
-    //             .then((result) => {
-    //                 const videoUrlFromApi = result.video;
-    //                 setVideoUrl(videoUrlFromApi);
-    //                 // console.log('video url:', video)
-    //                 console.log('video url updated:', videoUrlFromApi);
-    //             })
-    //             .catch(error => {
-    //                 console.error('Error uploading video:', error);
-    //             });
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }, [video, userData.id]);
+  // useEffect(() => {
+  //     // console.log('video url updated:', video);
+  //     try {
+  //         if (video) {
+  //             const formData = new FormData();
+  //             formData.append("video", video, `video-user${userData.id}`);
+  //             // console.log('video:', video)
+  //             VideoApi(formData, userData.id)
+  //             .then((result) => {
+  //                 const videoUrlFromApi = result.video;
+  //                 setVideoUrl(videoUrlFromApi);
+  //                 // console.log('video url:', video)
+  //                 console.log('video url updated:', videoUrlFromApi);
+  //             })
+  //             .catch(error => {
+  //                 console.error('Error uploading video:', error);
+  //             });
+  //         }
+  //     } catch (error) {
+  //         console.log(error);
+  //     }
+  // }, [video, userData.id]);
 
-    return (
-        <Modal className={styles["community-modal"]} isOpen={true} fade={false} toggle={onClose}>
+  return (
+        <Modal className={styles['community-modal']} isOpen={true} fade={false} toggle={onClose}>
             <ModalHeader toggle={onClose}>User Profile</ModalHeader>
             <ModalBody>
-                <div className='d-flex' style={{ gap: "20px" }}>
+                <div className='d-flex' style={{ gap: '20px' }}>
                     <div>
                         <img src={userData.avatar} alt={userData.id} width={150}></img>
                     </div>
@@ -48,17 +49,19 @@ function ModalProfile(props) {
                         <h5>Country: {userData.country}</h5>
                         <h5>Score: {userData.score}</h5>
                         <h5>Rank: {userData.rank}</h5>
-                        
-                        <div className={styles['video-wrapper']}>{userData.video ? (<video src={userData.video} alt={userData.id} width={300} controls></video>
-                        ) : (
+
+                        <div className={styles['video-wrapper']}>{userData.video
+                          ? (<video src={userData.video} alt={userData.id} width={300} controls></video>
+                            )
+                          : (
                             <p>Sobat ini belum punya moment video untuk dibagikan</p>
-                        )}
-                        </div> 
+                            )}
+                        </div>
                     </div>
                 </div>
             </ModalBody>
         </Modal>
-    );
+  )
 }
 
-export default ModalProfile;
+export default ModalProfile
