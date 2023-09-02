@@ -1,43 +1,43 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from 'react'
 
 // import reactstrap
-import {Button, UncontrolledPopover, PopoverBody, Table} from "reactstrap";
+import { Button, UncontrolledPopover, PopoverBody, Table } from 'reactstrap'
 
 // import api
-import { leaderboardGameApi } from '../../api/gameListApi';
+import { leaderboardGameApi } from '../../api/gameListApi'
 
 // use dummy data in case the server is error
 const leadergame = [
-    {
-        user_id: -1,
-        username: "No Player found",
-        score: 0,
-    }
-];
+  {
+    user_id: -1,
+    username: 'No Player found',
+    score: 0
+  }
+]
 
-function LeaderboardPopover(gameId) {
-    console.log("gameid", gameId.gameId)
-    const [leaderboard, setLeaderboard] = useState({data: leadergame});
-    function getLeadearboardData() {
-        try{
-            leaderboardGameApi(Number(gameId.gameId)).then((result) => {
-                if (result !== undefined) {
-                    if (result.data.length > 0) {
-                        setLeaderboard({data : result.data})
-                    }
-                }
-            })
-        } catch (error) {
-            console.log(error)
+function LeaderboardPopover (gameId) {
+  console.log('gameid', gameId.gameId)
+  const [leaderboard, setLeaderboard] = useState({ data: leadergame })
+  function getLeadearboardData () {
+    try {
+      leaderboardGameApi(Number(gameId.gameId)).then((result) => {
+        if (result !== undefined) {
+          if (result.data.length > 0) {
+            setLeaderboard({ data: result.data })
+          }
         }
+      })
+    } catch (error) {
+      console.log(error)
     }
+  }
 
-    return (
+  return (
         <div>
             <Button
                 id={`popover${gameId.gameId}`}
                 type="button"
-                style={{marginLeft:"20px"}}
+                style={{ marginLeft: '20px' }}
                 onClick={getLeadearboardData}>
                 Top Players
             </Button>
@@ -53,22 +53,22 @@ function LeaderboardPopover(gameId) {
                                 <th>Username</th>
                                 <th>Score</th>
                             </tr>
-                        </thead>                    
+                        </thead>
                         <tbody>
                             {leaderboard.data.map((user) => {
-                                return(
+                              return (
                                 <tr key={user.user_id}>
                                     <td>{user.username}</td>
                                     <td>{user.score}</td>
                                 </tr>
-                                )
-                            })} 
+                              )
+                            })}
                         </tbody>
                     </Table>
                 </PopoverBody>
             </UncontrolledPopover>
         </div>
-        )
+  )
 }
 
-export default LeaderboardPopover;
+export default LeaderboardPopover

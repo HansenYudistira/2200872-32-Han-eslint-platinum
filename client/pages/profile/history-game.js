@@ -1,63 +1,63 @@
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { Skeleton } from 'antd';
+import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { Skeleton } from 'antd'
 
 // import reactstrap
-import { Navbar } from "reactstrap";
+import { Navbar } from 'reactstrap'
 
 // import css
-import style from "../../styles/profile/History.module.css"
+import style from '../../styles/profile/History.module.css'
 
 // import components
-import Footer from "../../components/Footer/FooterAbs";
+import Footer from '../../components/Footer/FooterAbs'
 
 // api
-import { historyGameApi } from "../../api/profilePageApi";
+import { historyGameApi } from '../../api/profilePageApi'
 
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoMdArrowRoundBack } from 'react-icons/io'
 
 // import redux
-import { useDispatch, useSelector } from "react-redux";
-import { loadingSkeleton } from "../../redux/action";
+import { useDispatch, useSelector } from 'react-redux'
+import { loadingSkeleton } from '../../redux/action'
 
 const userDummy = [
-    { 
-        id: 0,
-        gameName: "No game played yet",
-        playtime: "N/A",
-        totalRonde: 0,
-        userSkor: 0
-    }
+  {
+    id: 0,
+    gameName: 'No game played yet',
+    playtime: 'N/A',
+    totalRonde: 0,
+    userSkor: 0
+  }
 ]
 
-function HistoryGame() {
-    // state
-    const [historyGame, setHistoryGame] = useState({ data: userDummy });
+function HistoryGame () {
+  // state
+  const [historyGame, setHistoryGame] = useState({ data: userDummy })
 
-    // get original state of redux
-    const reduxState = useSelector(state => state.reducer)
-    const dispatch = useDispatch()
+  // get original state of redux
+  const reduxState = useSelector(state => state.reducer)
+  const dispatch = useDispatch()
 
-    useEffect(() => {
-        try{
-            const id = localStorage.getItem('tokenId')
-            historyGameApi(id).then((result) => {
-                if (result !== undefined) {
-                    if (result.data.length > 0) {
-                        setHistoryGame({data: result.data})
-                    }
-                }
-            })
-            .finally(() => dispatch(loadingSkeleton(false)));
-        } catch(error) {
-            console.error(error);
+  useEffect(() => {
+    try {
+      const id = localStorage.getItem('tokenId')
+      historyGameApi(id).then((result) => {
+        if (result !== undefined) {
+          if (result.data.length > 0) {
+            setHistoryGame({ data: result.data })
+          }
         }
-    }, [])
+      })
+        .finally(() => dispatch(loadingSkeleton(false)))
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
 
-    return (
-        <div style={{backgroundColor: "black", minHeight: "100vh"}}>
-            <Navbar 
-                style={{backgroundColor: "#4E67EB"}}
+  return (
+        <div style={{ backgroundColor: 'black', minHeight: '100vh' }}>
+            <Navbar
+                style={{ backgroundColor: '#4E67EB' }}
                 className="mx-4"
             >
                 <div className="ms-3">
@@ -66,14 +66,14 @@ function HistoryGame() {
                     </Link>
                 </div>
             </Navbar>
-            <div style={{marginTop: "60px"}} className="d-flex mx-5">
-            <div className={style.tableContainer} 
-                style={{ 
-                    backgroundColor: '#4E67EB', 
-                    width: '800px',
-                    height: "75vh",
-                    overflowY: "scroll"
-                    }}>
+            <div style={{ marginTop: '60px' }} className="d-flex mx-5">
+            <div className={style.tableContainer}
+                style={{
+                  backgroundColor: '#4E67EB',
+                  width: '800px',
+                  height: '75vh',
+                  overflowY: 'scroll'
+                }}>
                 <div className={style.tableTitle}>
                     <h1>HISTORY GAME</h1>
                 </div>
@@ -111,10 +111,9 @@ function HistoryGame() {
 
                         ) : (
 
-
-                            // Render actual data
-                            historyGame.data.map((data) => {
-                                return (
+                        // Render actual data
+                          historyGame.data.map((data) => {
+                            return (
                                     <tr
                                         key={data.id}
                                     >
@@ -124,7 +123,7 @@ function HistoryGame() {
                                         <td>{data.userSkor}</td>
                                     </tr>
                             )
-                            })
+                          })
                         )}
                     </tbody>
                 </table>
@@ -132,7 +131,7 @@ function HistoryGame() {
             </div>
             <Footer />
         </div>
-    )
+  )
 }
 
-export default HistoryGame;
+export default HistoryGame
