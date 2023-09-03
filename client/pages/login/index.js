@@ -175,22 +175,6 @@ function LoginPage () {
         </Link>
         </div>
 
-        {/* <div
-            className={
-                `${styles.ButtonContainerClass}`
-            }>
-        {/* <Button
-            className={
-                `${styles.ButtonClass}`
-            }
-            type="button"
-            onclick="goToHomePage()"
-            onClick={handleSubmit}
-            href="/RegisterPage">
-                BACK
-        </Button>
-
-        </div> */}
         <div
             className={
                 `${styles.ButtonContainerClass}`
