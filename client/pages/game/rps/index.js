@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 import React, { useState, useEffect, useRef } from 'react'
 import { LoadingOutlined, PlayCircleOutlined, PauseCircleOutlined } from '@ant-design/icons'
 import { Spin } from 'antd'
@@ -41,6 +42,37 @@ function RockPaperScissorsPage () {
     }
   }
 
+<<<<<<< Updated upstream
+=======
+  const handleAudioUpload = () => {
+    if (audioFile) {
+      const user_id = localStorage.getItem('tokenId')
+      const payload = {
+        userId: user_id,
+        createAudio: audioFile
+      }
+      setUploading(true)
+
+      UploadAudioApi(payload)
+        .then(response => {
+          console.log(response)
+          setAudioUploaded(true)
+        })
+        .catch(error => {
+          console.log('Error uploading audio:', error)
+        })
+        .finally(() => {
+          setUploading(false)
+        })
+    }
+  }
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0]
+    setAudioFile(selectedFile)
+  }
+
+>>>>>>> Stashed changes
   const handleButtonDone = async () => {
     try {
       const user_id = localStorage.getItem('tokenId')
@@ -121,16 +153,33 @@ function RockPaperScissorsPage () {
   }, [])
 
   useEffect(async function () {
+<<<<<<< Updated upstream
     const audioUrl = await getAudioApi()
     console.log('audio url :', audioUrl)
     // Initialize the audio element
     if (audioRef.current) {
       audioRef.current.src = audioUrl
+=======
+    const user_id = localStorage.getItem('tokenId')
+    const audioUrl = await getAudioApi(user_id)
+    console.log('audio URL nya', JSON.stringify(audioUrl))
+    // Initialize the audio element
+    if (audioRef.current) {
+      if (audioUrl.audioURL.audio !== null) {
+        audioRef.current.src = audioUrl.audioURL.audio
+      } else {
+        audioRef.current.src = audioUrl.audioURL
+      }
+>>>>>>> Stashed changes
       audioRef.current.muted = false
       audioRef.current.loop = true
       console.log('audioRef current:', audioRef.current)
     }
+<<<<<<< Updated upstream
   }, [])
+=======
+  }, [audioUploaded])
+>>>>>>> Stashed changes
 
   return (
         <div className={styles.rpsBody}>
