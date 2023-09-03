@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/no-unknown-property */
 import React, { useState, useEffect } from 'react'
@@ -5,7 +6,7 @@ import Link from 'next/link'
 import { Skeleton } from 'antd'
 
 // import reactstrap
-import { Button, FormGroup, Label, Input, FormText, Spinner } from 'reactstrap'
+import { Button, FormGroup, Input } from 'reactstrap'
 
 // import css
 import style from '../../styles/profile/Profile.module.css'
@@ -77,10 +78,6 @@ function ProfilePage () {
         createVideo: selectedFile
       }
       setUploading(true)
-      //   console.log('selectedFile:', selectedFile)
-      // console.log(payload)
-
-      //   console.log('formdata:', formdata)
 
       VideoApi(payload)
         .then(response => {
@@ -98,66 +95,72 @@ function ProfilePage () {
   return (
         <div className={style.bgProfile}>
             <NavbarProfile />
-                <div className={style.positionProfile}>
-                    <div body outline color='primary'
-                        className={style.profile}
-                    >
 
-                    {reduxState.skeleton ? (
-                        // run skeleton while true
-                        <div style={{
+           {reduxState.skeleton ? (
+                // run skeleton while true
+                <div className="d-flex justify-content-center align-items-center">
+                    <div
+                        style={{
                           backgroundColor: 'lightGrey',
-                          width: '15rem',
+                          top: '50%',
+                          left: '50%',
+                          width: '25rem',
+                          height: '30rem',
                           padding: '10px',
                           textAlign: 'center',
                           marginBottom: '30px'
                         }}>
-                            <Skeleton.Avatar active shape="circle" size="large"/>
-                            <div style={{
-                              display: 'flex',
-                              flexDirection: 'column',
-                              paddingTop: '10px'
-                            }}>
-                                {[...Array(5)].map((_, index) => (
-                                    <Skeleton active paragraph={false} />
-                                ))}
-                            </div>
+                        <Skeleton.Avatar active shape='circle' size='large'/>
+                        <div style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          paddingTop: '10px'
+                        }}>
+                            {[...Array(10)].map((_, index) => (
+                                <div>
+                                    <Skeleton active paragraph={false}/>
+                                    <br/>
+                                </div>
+                            ))}
                         </div>
+                    </div>
+                </div>
+           ) : (
 
-                    ) : (
-
-                        // Render actual data when skeleton stops
-                        <>
-                            <img
-                                alt="avatar"
-                                src={profileUser.data.avatar}
-                                className={style.styleAvatar}
-                            />
-                            <div style={{
-                              display: 'flex',
-                              flexDirection: 'column'
-                            }}>
-                                <h3 className="text-center">
-                                    {profileUser.data.username}
-                                </h3>
-                                <h5 className="text-secondary text-center">
-                                    Email: {profileUser.data.email}
-                                </h5>
-                                <h5 className="text-secondary text-center">
-                                    Umur: {profileUser.data.umur}
-                                </h5>
-                                <h5 className="text-secondary text-center">
-                                    City: {profileUser.data.city}
-                                </h5>
-                                <h5
-                                    className="text-secondary text-center"
-                                    style={{ marginBottom: '100px' }}
-                                >
-                                    Country: {profileUser.data.country}
-                                </h5>
-                            </div>
-                        </>
-                    )}
+           // Render actual data when skeleton stops
+                <>
+                <div className={style.positionProfile}>
+                    <div body outline color='primary'
+                        className={style.profile}
+                    >
+                      <img
+                          alt="avatar"
+                          src={profileUser.data.avatar}
+                          className={style.styleAvatar}
+                      />
+                      <div style={{
+                        display: 'flex',
+                        flexDirection: 'column'
+                      }}>
+                          <h3 className="text-center">
+                              {profileUser.data.username}
+                          </h3>
+                          <h5 className="text-secondary text-center">
+                              Email: {profileUser.data.email}
+                          </h5>
+                          <h5 className="text-secondary text-center">
+                              Umur: {profileUser.data.umur}
+                          </h5>
+                          <h5 className="text-secondary text-center">
+                              City: {profileUser.data.city}
+                          </h5>
+                          <h5
+                              className="text-secondary text-center"
+                              style={{ marginBottom: '100px' }}
+                          >
+                              Country: {profileUser.data.country}
+                          </h5>
+                      </div>
 
                         <div className="d-flex">
                             <ModalProfile
@@ -195,6 +198,8 @@ function ProfilePage () {
                         </div>
                     </div>
                 </div>
+                </>
+           )}
             <Footer />
         </div>
   )

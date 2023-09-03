@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from 'react'
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from 'reactstrap'
+import { Modal, ModalBody, ModalFooter, ModalHeader, Spinner } from 'reactstrap'
 
 // import components
 import SicboRules from './rules'

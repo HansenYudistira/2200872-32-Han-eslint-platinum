@@ -7,7 +7,7 @@ function RegisterApi (payload) {
   urlencoded.append('email', payload.email)
   urlencoded.append('username', payload.username)
   urlencoded.append('password', payload.password)
-  urlencoded.append('confirm_password', payload.confirm_password)
+  urlencoded.append('confirmPassword', payload.confirmPassword)
 
   const requestOptions = {
     method: 'POST',

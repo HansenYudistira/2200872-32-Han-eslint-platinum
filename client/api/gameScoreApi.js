@@ -1,9 +1,9 @@
 /// API Connection to save game score
-function InsertScoreApi (user_id, game_url, total_ronde, skor) {
+function InsertScoreApi (userId, gameUrl, totalRonde, skor) {
   const data = {
-    user_id,
-    game_url,
-    total_ronde,
+    userId,
+    gameUrl,
+    totalRonde,
     skor
   }
   return fetch(`${process.env.REACT_APP_BE_URL}/game/insert-score`, {
