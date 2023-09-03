@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Skeleton } from 'antd'

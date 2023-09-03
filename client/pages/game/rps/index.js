@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 import React, { useState, useEffect, useRef } from 'react'
 import { LoadingOutlined } from '@ant-design/icons'
 import { Spin } from 'antd'
@@ -49,7 +50,8 @@ function RockPaperScissorsPage() {
 
   const handleAudioUpload = () => {
     if (audioFile) {
-      const user_id = localStorage.getItem("tokenId")
+      const user_id = localStorage.getItem('tokenId')
+
       const payload = {
         userId: user_id,
         createAudio: audioFile
@@ -62,6 +64,11 @@ function RockPaperScissorsPage() {
 
       setRefreshAudio("Refresh page to apply changes !")
     }
+  }
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0]
+    setAudioFile(selectedFile)
   }
 
   const handleButtonDone = async () => {
@@ -144,9 +151,9 @@ function RockPaperScissorsPage() {
   }, [])
 
   useEffect(async function () {
-    const user_id = localStorage.getItem("tokenId")
+    const user_id = localStorage.getItem('tokenId')
     const audioUrl = await getAudioApi(user_id)
-    console.log('audio URL nya', JSON.stringify(audioUrl));
+    console.log('audio URL nya', JSON.stringify(audioUrl))
     // Initialize the audio element
     audioRef.current = new Audio()
     if (audioRef.current) {
