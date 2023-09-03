@@ -66,11 +66,6 @@ function RockPaperScissorsPage() {
     }
   }
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0]
-    setAudioFile(selectedFile)
-  }
-
   const handleButtonDone = async () => {
     try {
       const user_id = localStorage.getItem("tokenId")
