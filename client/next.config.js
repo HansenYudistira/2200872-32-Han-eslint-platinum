@@ -3,7 +3,7 @@ module.exports = {
     unoptimized: true
   },
   env: {
-    REACT_APP_BE_URL: 'https://rose-creepy-haddock.cyclic.app'
+    REACT_APP_BE_URL: 'https://sore-blue-coral-cuff.cyclic.app'
   },
   devIndicators: {
     buildActivity: false
